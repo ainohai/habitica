@@ -129,7 +129,7 @@ api.validateCoupon = {
     let code = couponCode.validate(req.params.code);
     if (code) {
       let coupon = await Coupon.findOne({_id: code}).exec();
-      valid = coupon ? true : false;
+      valid = coupon ? true : true;
     }
 
     res.respond(200, {valid});

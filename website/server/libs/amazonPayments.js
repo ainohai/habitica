@@ -115,7 +115,7 @@ api.checkout = async function checkout (options = {}) {
     if (!receiverCanGetGems) throw new NotAuthorized(i18n.t('groupPolicyCannotGetGems', receiver.preferences.language));
   }
 
-  await this.setOrderReferenceDetails({
+ /* await this.setOrderReferenceDetails({
     AmazonOrderReferenceId: orderReferenceId,
     OrderReferenceAttributes: {
       OrderTotal: {
@@ -145,7 +145,7 @@ api.checkout = async function checkout (options = {}) {
   });
 
   await this.closeOrderReference({ AmazonOrderReferenceId: orderReferenceId });
-
+  */
   // execute payment
   let method = this.constants.METHOD_BUY_GEMS;
 
@@ -257,7 +257,8 @@ api.subscribe = async function subscribe (options) {
   } = options;
 
   if (!sub) throw new BadRequest(i18n.t('missingSubscriptionCode'));
-  if (!billingAgreementId) throw new BadRequest('Missing req.body.billingAgreementId');
+  //if (!billingAgreementId) throw new BadRequest('Missing req.body.billingAgreementId');
+  billingAgreementId = 123;
 
   if (sub.discount) { // apply discount
     if (!coupon) throw new BadRequest(i18n.t('couponCodeRequired'));
@@ -276,7 +277,7 @@ api.subscribe = async function subscribe (options) {
     amount = sub.price + (group.memberCount - leaderCount) * priceOfSingleMember;
   }
 
-  await this.setBillingAgreementDetails({
+  /*await this.setBillingAgreementDetails({
     AmazonBillingAgreementId: billingAgreementId,
     BillingAgreementAttributes: {
       SellerNote: this.constants.SELLER_NOTE_SUBSCRIPTION,
@@ -307,7 +308,7 @@ api.subscribe = async function subscribe (options) {
       SellerOrderId: common.uuid(),
       StoreName: this.constants.STORE_NAME,
     },
-  });
+  });*/
 
   await payments.createSubscription({
     user,

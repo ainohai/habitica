@@ -48,7 +48,8 @@ api.createOrderReferenceId = {
   async handler (req, res) {
     let billingAgreementId = req.body.billingAgreementId;
 
-    if (!billingAgreementId) throw new BadRequest('Missing req.body.billingAgreementId');
+    //if (!billingAgreementId) throw new BadRequest('Missing req.body.billingAgreementId');
+    billingAgreementId = 1234;
 
     let response = await amzLib.createOrderReferenceId({
       Id: billingAgreementId,

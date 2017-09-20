@@ -47,6 +47,7 @@ script(id='partials/options.settings.subscription.html',type='text/ng-template',
             .form-group
               button.pull-right.btn.btn-small(type='button',ng-click='applyCoupon(_subscription.coupon)')= env.t("apply")
 
+
         div(ng-if='hasSubscription(user)')
           .btn.btn-primary(ng-if='canEditCardDetails(user)', ng-click='Payments.showStripeEdit()')=env.t('subUpdateCard')
           .btn.btn-sm.btn-danger(ng-if='canCancelSubscription(user)', ng-click='Payments.cancelSubscription()')=env.t('cancelSub')
