@@ -174,6 +174,10 @@ let mysterySets = {
     start: '2017-08-17',
     end: '2017-09-02',
   },
+  201709: {
+    start: '2017-09-19',
+    end: '2017-10-02',
+  },
   301404: {
     start: '3014-03-24',
     end: '3014-04-02',
@@ -200,6 +204,7 @@ let mysterySets = {
 each(mysterySets, (value, key) => {
   value.key = key;
   value.text = t(`mysterySet${key}`);
+  value.class = `shop_set_mystery_${key}`;
 });
 
 module.exports = mysterySets;
