@@ -1,8 +1,8 @@
 // Logger utility
+import _ from 'lodash';
 import winston from 'winston';
 import 'winston-loggly-bulk';
 import nconf from 'nconf';
-import _ from 'lodash';
 import {
   CustomError,
 } from './errors';
