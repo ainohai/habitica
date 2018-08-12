@@ -48,14 +48,14 @@
     .row(:class='{"guild-background": !isParty}')
       .col-12
         .button-container
-          button.btn.btn-success(class='btn-success', v-if='isLeader && !group.purchased.active', @click='upgradeGroup()')
+          button.ainohide.btn.btn-success(class='btn-success', v-if='isLeader && !group.purchased.active', @click='upgradeGroup()')
             | {{ $t('upgrade') }}
         .button-container
-          button.btn.btn-primary(b-btn, @click="updateGuild", v-once, v-if='isLeader || isAdmin') {{ $t('edit') }}
+          button.ainohide.btn.btn-primary(b-btn, @click="updateGuild", v-once, v-if='isLeader || isAdmin') {{ $t('edit') }}
         .button-container
           button.btn.btn-success(class='btn-success', v-if='!isMember', @click='join()') {{ $t('join') }}
         .button-container
-          button.btn.btn-primary(v-once, @click='showInviteModal()') {{$t('invite')}}
+          button.ainohide.btn.btn-primary(v-once, @click='showInviteModal()') {{$t('invite')}}
           // @TODO: hide the invitation button if there's an active group plan and the player is not the leader
         .button-container
           // @TODO: V2 button.btn.btn-primary(v-once, v-if='!isLeader') {{$t('messageGuildLeader')}} // Suggest making the button visible to the leader too - useful for them to test how the feature works or to send a note to themself. -- Alys
@@ -104,7 +104,7 @@
       .section(v-if="sections.challenges")
         group-challenges(:groupId='searchId')
     div.text-center
-      button.btn.btn-danger(v-if='isMember', @click='clickLeave()') {{ isParty ? $t('leaveParty') : $t('leaveGroup') }}
+      button.ainohide.btn.btn-danger(v-if='isMember', @click='clickLeave()') {{ isParty ? $t('leaveParty') : $t('leaveGroup') }}
 </template>
 
 <style lang="scss" scoped>

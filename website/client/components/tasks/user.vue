@@ -58,7 +58,7 @@
                 a.btn-filters-danger(@click="resetFilters()", v-once) {{ $t('resetFilters') }}
               .float-right
                 a.btn-filters-secondary(@click="closeFilterPanel()", v-once) {{ $t('cancel') }}
-      .create-task-area.d-flex
+      .create-task-area.d-flex.ainohide
         transition(name="slide-tasks-btns")
           .d-flex(v-if="openCreateBtn")
             .create-task-btn.rounded-btn(
@@ -69,7 +69,7 @@
             )
               .svg-icon(v-html="icons[type]", :class='`icon-${type}`')
 
-        #create-task-btn.create-btn.rounded-btn.btn.btn-success(
+        #create-task-btn.ainohide.create-btn.rounded-btn.btn.btn-success(
           @click="openCreateBtn = !openCreateBtn",
           :class="{open: openCreateBtn}",
         )

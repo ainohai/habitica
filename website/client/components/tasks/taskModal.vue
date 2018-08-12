@@ -6,7 +6,7 @@
           h1.float-left {{ title }}
           .float-right.d-flex.align-items-center
             span.cancel-task-btn.mr-2(v-once, @click="cancel()") {{ $t('cancel') }}
-            button.btn.btn-secondary(type="submit", v-once) {{ $t('save') }}
+            button.ainohide.btn.btn-secondary(type="submit", v-once) {{ $t('save') }}
         .form-group
           label(v-once) {{ `${$t('text')}*` }}
           input.form-control.title-input(
@@ -149,7 +149,7 @@
                   .dropdown-toggle
           tags-popup(v-if="showTagsSelect", :tags="user.tags", v-model="task.tags", @close='closeTagsPopup()')
 
-        .option(v-if="task.type === 'habit'")
+        .ainohide.option(v-if="task.type === 'habit'")
           .form-group
             label(v-once) {{ $t('resetStreak') }}
             b-dropdown.inline-dropdown(:text="$t(task.frequency)", :disabled='challengeAccessRequired')
@@ -178,7 +178,7 @@
                   .row
                     button.btn.btn-primary(@click="showAssignedSelect = !showAssignedSelect") {{$t('close')}}
 
-        .option.group-options(v-if='groupId')
+        .ainohide.option.group-options(v-if='groupId')
           .form-group
             label(v-once) {{ $t('approvalRequired') }}
             toggle-switch.d-inline-block(
@@ -186,7 +186,7 @@
               @change="updateRequiresApproval"
             )
 
-        .advanced-settings(v-if="task.type !== 'reward'")
+        .ainohide.advanced-settings(v-if="task.type !== 'reward'")
           .advanced-settings-toggle.d-flex.justify-content-between.align-items-center(@click = "showAdvancedOptions = !showAdvancedOptions")
             h3 {{ $t('advancedSettings') }}
             .toggle-up
@@ -217,7 +217,17 @@
                         .input-group-prepend.negative-addon.input-group-icon
                           .svg-icon(v-html="icons.negative")
                         input.form-control(
-                          type="number", v-model="task.counterDown", min="0", required,
+                          type="number", v-model="task.counterDown", min="0",
+                        )
+                .form-group
+                  label(v-once) {{ $t('restrictHabits') }}
+                  .row
+                    .col-6(v-if="task.up")
+                      .input-group
+                        .input-group-prepend.positive-addon.input-group-icon
+                          .svg-icon(v-html="icons.positive")
+                        input.form-control(
+                        type="number", v-model="task.ainoRestriction", min="0", required,
                         )
 
               //.option(v-if="isUserTask && task.type !== 'reward'")
@@ -229,13 +239,13 @@
                     .custom-control.custom-radio.custom-control-inline(v-for="attr in ATTRIBUTES", :key="attr")
                       input.custom-control-input(:id="`attribute-${attr}`", type="radio", :value="attr", v-model="task.attribute", :disabled="user.preferences.allocationMode !== 'taskbased'")
                       label.custom-control-label.attr-description(:for="`attribute-${attr}`", v-once, v-b-popover.hover="$t(`${attr}Text`)") {{ $t(attributesStrings[attr]) }}
-        .delete-task-btn.d-flex.justify-content-center.align-items-middle(@click="destroy()", v-if="purpose !== 'create' && !challengeAccessRequired")
+        .ainohide.delete-task-btn.d-flex.justify-content-center.align-items-middle(@click="destroy()", v-if="purpose !== 'create' && !challengeAccessRequired")
           .svg-icon.d-inline-b(v-html="icons.destroy")
           span {{ $t('deleteTask') }}
 
       .task-modal-footer.d-flex.justify-content-center.align-items-center(slot="modal-footer")
         .cancel-task-btn(v-once, @click="cancel()") {{ $t('cancel') }}
-        button.btn.btn-primary(type="submit", v-once) {{ $t('save') }}
+        button.ainohide.btn.btn-primary(type="submit", v-once) {{ $t('save') }}
 </template>
 
 <style lang="scss">

@@ -4,7 +4,7 @@
     approval-header(:task='task', v-if='this.task.group.id', :group='group')
     .d-flex(:class="{'task-not-scoreable': isUser !== true}")
       // Habits left side control
-      .left-control.d-flex.align-items-center.justify-content-center(v-if="task.type === 'habit'", :class="controlClass.up.bg")
+      .left-control.d-flex.align-items-center.justify-content-center(v-if="(task.type === 'habit') ", :class="[controlClass.up.bg, !ainoTaskAllowed(task) ? 'ainohide' : '']")
         .task-control.habit-control(:class="controlClass.up.inner", @click="(isUser && task.up) ? score('up') : null")
           .svg-icon.positive(v-html="icons.positive")
       // Dailies and todos left side control
@@ -16,7 +16,7 @@
         .task-clickable-area(@click="edit($event, task)", :class="{'task-clickable-area-user': isUser}")
           .d-flex.justify-content-between
             h3.task-title(:class="{ 'has-notes': task.notes }", v-markdown="task.text")
-            menu-dropdown.task-dropdown(
+            menu-dropdown.ainohide.task-dropdown(
               v-if="isUser && !isRunningYesterdailies",
               :right="task.type === 'reward'",
               ref="taskDropdown",
@@ -77,9 +77,10 @@
               .svg-icon.streak(v-html="icons.streak", v-b-tooltip.hover.bottom="$t('streakCounter')")
               span(v-if="task.type === 'daily'") {{task.streak}}
               span(v-if="task.type === 'habit'")
+                span.m-0(v-if="task.down") -{{task.counterDown}}
                 span.m-0(v-if="task.up") +{{task.counterUp}}
                 span.m-0(v-if="task.up && task.down") &nbsp;|&nbsp;
-                span.m-0(v-if="task.down") -{{task.counterDown}}
+                span.m-0(v-if="task.ainoRestriction !== 0") Tänään vielä {{getTaskCompleteTimesLeft(task)}}
             .d-flex.align-items-center(v-if="task.challenge && task.challenge.id")
               .svg-icon.challenge(v-html="icons.challenge", v-if='!task.challenge.broken', v-b-tooltip.hover.bottom="shortName")
               .svg-icon.challenge.broken(v-html="icons.brokenChallengeIcon", v-if='task.challenge.broken', @click='handleBrokenTask(task)', v-b-tooltip.hover.bottom="$t('brokenChaLink')")
@@ -779,6 +780,38 @@ export default {
     handleBrokenTask (task) {
       if (this.$store.state.isRunningYesterdailies) return;
       this.$root.$emit('handle-broken-task', task);
+    },
+    getTaskCompleteTimesLeft (task) {
+      if (!task.history || task.history.length === 0) {
+        return task.ainoRestriction;
+      }
+      let now = moment();
+      let positives = 0;
+      for (let i = task.history.length - 1; i >= 0; i--) {
+        console.log(i);
+        console.log(now.diff(task.history[i].date));
+        if (now.diff(task.history[i].date, 'days') !== 0) {
+          break;
+        }
+        if (i === 0 && task.history[i].value >= 1) {
+          positives = positives + 1;
+        }
+        if (task.history[i].value > task.history[i - 1].value) {
+          positives = positives + 1;
+        }
+      }
+      console.log("positives: " + positives)
+      return task.ainoRestriction - positives;
+    },
+    ainoTaskAllowed (task) {
+      if (task.frequency !== 'daily' || task.type !== 'habit' || task.ainoRestriction < 1) {
+        return true;
+      }
+      //not working so far for habits with possibility of negative
+      /* if (task.down === true) {
+        return true;
+      } */
+      return this.getTaskCompleteTimesLeft(task) > 0;
     },
   },
 };

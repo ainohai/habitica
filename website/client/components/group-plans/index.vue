@@ -2,11 +2,11 @@
 .row
   group-form-modal
   secondary-menu.col-12
-    router-link.nav-link(:to="{name: 'groupPlanDetailTaskInformation', params: {groupId}}",
+    router-link.ainohide.nav-link(:to="{name: 'groupPlanDetailTaskInformation', params: {groupId}}",
       exact, :class="{'active': $route.name === 'groupPlanDetailTaskInformation'}") {{ $t('groupTaskBoard') }}
-    router-link.nav-link(:to="{name: 'groupPlanDetailInformation', params: {groupId}}",
+    router-link.ainohide.nav-link(:to="{name: 'groupPlanDetailInformation', params: {groupId}}",
       exact, :class="{'active': $route.name === 'groupPlanDetailInformation'}") {{ $t('groupInformation') }}
-    router-link.nav-link(
+    router-link.ainohide.nav-link(
       v-if='isLeader',
       :to="{name: 'groupPlanBilling', params: {groupId}}",
       exact,

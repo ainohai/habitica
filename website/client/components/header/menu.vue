@@ -30,13 +30,13 @@ div
           a.nav-link(v-once) {{ $t('party') }}
         .nav-item(@click='openPartyModal()', v-if='!this.user.party._id')
           a.nav-link(v-once) {{ $t('party') }}
-        router-link.nav-item.dropdown(tag="li", :to="{name: 'tavern'}", :class="{'active': $route.path.startsWith('/guilds')}")
+        router-link.nav-item.dropdown(tag="li", :to="{name: 'myGuilds'}", :class="{'active': $route.path.startsWith('/guilds')}")
           a.nav-link(v-once) {{ $t('guilds') }}
           .dropdown-menu
-            router-link.dropdown-item(:to="{name: 'tavern'}") {{ $t('tavern') }}
+            router-link.ainohide.dropdown-item(:to="{name: 'tavern'}") {{ $t('tavern') }}
             router-link.dropdown-item(:to="{name: 'myGuilds'}") {{ $t('myGuilds') }}
-            router-link.dropdown-item(:to="{name: 'guildsDiscovery'}") {{ $t('guildsDiscovery') }}
-        router-link.nav-item.dropdown(tag="li", :to="{name: 'groupPlan'}", :class="{'active': $route.path.startsWith('/group-plans')}")
+            router-link.ainohide.dropdown-item(:to="{name: 'guildsDiscovery'}") {{ $t('guildsDiscovery') }}
+        router-link.ainohide.nav-item.dropdown(tag="li", :to="{name: 'groupPlan'}", :class="{'active': $route.path.startsWith('/group-plans')}")
           a.nav-link(v-once) {{ $t('group') }}
           .dropdown-menu
             router-link.dropdown-item(v-for='group in groupPlans', :key='group._id', :to="{name: 'groupPlanDetailTaskInformation', params: {groupId: group._id}}") {{ group.name }}
@@ -46,7 +46,7 @@ div
             router-link.dropdown-item(:to="{name: 'myChallenges'}") {{ $t('myChallenges') }}
             router-link.dropdown-item(:to="{name: 'findChallenges'}") {{ $t('findChallenges') }}
         router-link.nav-item.dropdown(tag="li", :class="{'active': $route.path.startsWith('/help')}", :to="{name: 'faq'}")
-          a.nav-link(v-once) {{ $t('help') }}
+          a.ainohide.nav-link(v-once) {{ $t('help') }}
           .dropdown-menu
             router-link.dropdown-item(:to="{name: 'faq'}") {{ $t('faq') }}
             router-link.dropdown-item(:to="{name: 'overview'}") {{ $t('overview') }}

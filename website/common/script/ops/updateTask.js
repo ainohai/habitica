@@ -19,6 +19,9 @@ module.exports = function updateTask (task, req = {}) {
   if (body.tags) {
     task.tags = body.tags;
   }
+  if (body.ainoRestriction) {
+    task.ainoRestriction = body.ainoRestriction;
+  }
 
   merge(task, omit(body, ['_id', 'id', 'type', 'reminders', 'checklist', 'tags']));
 

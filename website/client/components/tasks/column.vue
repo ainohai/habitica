@@ -17,7 +17,7 @@
         @click="activateFilter(type, filter)",
       ) {{ $t(filter) }}
   .tasks-list(ref="tasksWrapper")
-    textarea.quick-add(
+    textarea.ainohide.quick-add(
       :rows="quickAddRows",
       v-if="isUser", :placeholder="quickAddPlaceholder",
       v-model="quickAddText", @keypress.enter="quickAdd",
