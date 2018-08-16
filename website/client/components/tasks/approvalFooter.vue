@@ -3,9 +3,9 @@ div
   approval-modal(:task='task')
   .claim-bottom-message.col-12
     .task-unclaimed.d-flex.justify-content-between(v-if='!approvalRequested && !multipleApprovalsRequested')
-      span {{ message }}
+      span.ainohide {{ message }}
       a.text-right(@click='claim()', v-if='!userIsAssigned') {{ $t('claim') }}
-      a.text-right(@click='unassign()', v-if='userIsAssigned') {{ $t('removeClaim') }}
+      a.ainohide.text-right(@click='unassign()', v-if='userIsAssigned') {{ $t('removeClaim') }}
     .row.task-single-approval(v-if='approvalRequested')
       .col-6.text-center
         a(@click='approve()') {{ $t('approveTask') }}

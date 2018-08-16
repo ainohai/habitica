@@ -788,19 +788,16 @@ export default {
       let now = moment();
       let positives = 0;
       for (let i = task.history.length - 1; i >= 0; i--) {
-        console.log(i);
-        console.log(now.diff(task.history[i].date));
+
         if (now.diff(task.history[i].date, 'days') !== 0) {
           break;
         }
         if (i === 0 && task.history[i].value >= 1) {
           positives = positives + 1;
-        }
-        if (task.history[i].value > task.history[i - 1].value) {
+        } else if (task.history[i].value > task.history[i - 1].value) {
           positives = positives + 1;
         }
       }
-      console.log("positives: " + positives)
       return task.ainoRestriction - positives;
     },
     ainoTaskAllowed (task) {
